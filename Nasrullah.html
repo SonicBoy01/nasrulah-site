@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoGoSonic X Nasrullah - Ntong</title>
+  <style>
+    body{font-family:Arial, sans-serif;background:#f2f2f2;margin:0;padding:0}
+    header,footer{background:#4a90e2;color:#fff;text-align:center;padding:1.5rem}
+    section{padding:2rem}
+    .card{background:#fff;padding:1.5rem;margin:1rem 0;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+    .btn{background:#4a90e2;color:#fff;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;margin:5px;text-decoration:none;display:inline-block}
+    .btn:hover{background:#357ab8}
+    #game-area{margin-top:1rem}
+    /* style khusus WA */
+    .btn-wa{background:#25D366}
+    .btn-wa:hover{background:#1DA955}
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Halo, Saya Nasrullah</h1>
+    <p>Web Developer | Freelancer | Content Creator</p>
+  </header>
+
+  <section>
+    <div class="card">
+      <h2>Tentang Saya</h2>
+      <p>Saya adalah pengembang web berpengalaman yang telah mengerjakan berbagai proyek menggunakan HTML, CSS, dan JavaScript.</p>
+    </div>
+
+    <div class="card">
+      <h2>Proyek Terbaru</h2>
+      <ul>
+        <li>Website Toko Online</li>
+        <li>Dashboard Admin</li>
+        <li>Aplikasi Jadwal Sekolah</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Hubungi Saya</h2>
+      <p>Nama&nbsp;&nbsp;: <strong>Nasrullah</strong></p>
+      <p>Email&nbsp;&nbsp;&nbsp;: <a href="mailto:muhammadnasrullah303@gmail.com">muhammadnasrullah303@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/6283870743757" target="_blank">0838-7074-3757</a></p>
+      <!-- Tombol email dan WA -->
+      <a href="mailto:muhammadnasrullah303@gmail.com" class="btn">Kirim Email</a>
+      <a href="https://wa.me/6283870743757" target="_blank" class="btn btn-wa">Chat WhatsApp</a>
+    </div>
+
+    <div class="card">
+      <h2>Permainan Sederhana</h2>
+      <button class="btn" onclick="showGame('guess')">Tebak Angka</button>
+      <button class="btn" onclick="showGame('rps')">Suit Batu-Gunting-Kertas</button>
+      <div id="game-area"></div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Nasrullah. Seluruh hak cipta dilindungi.
+  </footer>
+
+  <script>
+    function showGame(game){
+      const area=document.getElementById('game-area');
+      if(game==='guess'){
+        area.innerHTML=`
+          <h3>Tebak Angka (1-10)</h3>
+          <input type="number" id="guessInput" min="1" max="10"/>
+          <button class="btn" onclick="checkGuess()">Tebak</button>
+          <p id="guessResult"></p>`;
+        window.secret=Math.floor(Math.random()*10)+1;
+      }else if(game==='rps'){
+        area.innerHTML=`
+          <h3>Suit Batu-Gunting-Kertas</h3>
+          <button class="btn" onclick="playRPS('batu')">Batu</button>
+          <button class="btn" onclick="playRPS('gunting')">Gunting</button>
+          <button class="btn" onclick="playRPS('kertas')">Kertas</button>
+          <p id="rpsResult"></p>`;
+      }
+    }
+    function checkGuess(){
+      const guess=parseInt(document.getElementById('guessInput').value);
+      const result=document.getElementById('guessResult');
+      result.textContent=guess===window.secret?'Tebakan kamu benar!':'Salah! Coba lagi.';
+    }
+    function playRPS(user){
+      const choices=['batu','gunting','kertas'];
+      const comp=choices[Math.floor(Math.random()*3)];
+      let hasil='';
+      if(user===comp) hasil='Seri!';
+      else if(
+        (user==='batu'&&comp==='gunting')||
+        (user==='gunting'&&comp==='kertas')||
+        (user==='kertas'&&comp==='batu')
+      ) hasil='Kamu Menang!';
+      else hasil='Kamu Kalah!';
+      document.getElementById('rpsResult').textContent=`Kamu: ${user} | Komputer: ${comp} ⇒ ${hasil}`;
+    }
+  </script>
+
+</body>
+</html>
